@@ -7,16 +7,23 @@ Use funções para:
 -->
 
 <?php 
-$nome = $_GET['produto'];
-$preco = $_GET['preco'];
+$produto['nome'] = $_GET['produto'];
+        $produto['preco'] = $_GET['preco'];
 
-$produtos = [];
+$produtos = [
+    ["nome" => "", "preco" => ""]
+];
 
-$produtos = [$nome,$preco];
+function inserirProduto($produtos) {
+    foreach($produtos as $produto) {
+        $produto['nome'] = $_GET['produto'];
+        $produto['preco'] = $_GET['preco'];
+        echo "<li> {$produto['nome']} {$produto['preco']} </li>";
+    }
+}
 
 echo  "<ul>";
- foreach($produtos as $p) {
-    echo "<li> {$p} </li>";
- }
+
+echo inserirProduto($produtos);
 
 echo  "</ul>";
