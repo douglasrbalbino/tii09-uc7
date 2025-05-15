@@ -2,7 +2,7 @@
 
 class Pizza 
 {
-    private int $id;
+    private $id;
     private string $sabor;
     private string $tamanho;
     private float $preco;
