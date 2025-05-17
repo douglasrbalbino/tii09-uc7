@@ -20,16 +20,16 @@ $contatos = $dao->getAll();
     
     <table border="1" cellpadding="5">
         <tr>
-            <th>ID</th>
             <th>Nome</th>
+            <th>Telefone</th>
             <th>Ações</th>
         </tr>
         <?php foreach ($contatos as $c): ?>
             <tr>
-                <td><?= $c->getId() ?></td>
                 <td><?= $c->getNome() ?></td>
+                <td><?= $c->getTelefone() ?></td>
                 <td>
-                    <a href="#">Detalhes</a>
+                    <a href="contato_details.php?id=<?= $c->getId() ?>">Detalhes</a>
                     <a href="#">Editar</a>
                     <a href="#">Excluir</a>
                 </td>
