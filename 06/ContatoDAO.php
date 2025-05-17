@@ -58,5 +58,12 @@ class ContatoDAO
         $stmt->bindParam(':endereco', $endereco);
         $stmt->execute();
     }
+
+    public function delete(int $id): void
+    {
+        $stmt = $this->db->prepare("DELETE FROM contatos WHERE id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
 }
 ?>
