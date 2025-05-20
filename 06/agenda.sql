@@ -24,3 +24,6 @@ insert into contatos (nome, telefone, email, endereco) values
 -- INSERÇÃO SEM O CAMPO ENDEREÇO
 insert into contatos (nome, telefone, email) values
 	('Superman', '11933334444', 'superman@mail.com');
+
+-- ATUALIZAR DADOS
+UPDATE contatos SET endereco = 'Avenida de Gotham' WHERE id = 4;

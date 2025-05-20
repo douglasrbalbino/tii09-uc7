@@ -1,9 +1,26 @@
 <?php
 require_once 'ContatoDAO.php';
 $dao = new ContatoDAO();
+$contato = null; // Contato para a edição
 
-if(isset($_POST['nome']) && isset($_POST['telefone']) && isset($_POST['email']))
-{
+// Editar Contato
+if(isset($_GET['id'])) {
+    $contato = $dao->getById($_GET['id']);
+}
+
+// Salvar edição de contato
+if(isset($_POST['id'])) {
+    $endereco = null;
+    if(isset($_POST['endereco']))
+    {
+        $endereco = $_POST['endereco'];
+    }
+
+    $contato = new Contato($_POST['id'], $_POST['nome'], $_POST['telefone'], $_POST['email'], $endereco);
+    $dao->update($contato);
+
+    header("Location: index.php");
+} else if(isset($_POST['nome']) && isset($_POST['telefone']) && isset($_POST['email'])) {
     $endereco = null;
     if(isset($_POST['endereco']))
     {
@@ -26,22 +43,27 @@ if(isset($_POST['nome']) && isset($_POST['telefone']) && isset($_POST['email']))
     <title>Cadastrar Contato</title>
 </head>
 <body>
-    <h2>Cadastrar Novo Contato:</h2>
+    <h2><?= $contato? "Editar Contato" : "Cadastrar Contato" ?></h2>
 
     <form action="contato_form.php" method="post">
+        <?php if ($contato): ?>
+            <input type="hidden" name="id" value="<?= $contato->getId() ?>">
+        <?php endif; ?>
+
         <label>Nome:</label>
-        <input type="text" name="nome" required>
+        <input type="text" name="nome" required value="<?= $contato ? $contato->getNome() : "" ?>"> </br>
 
         <label>Telefone:</label>
-        <input type="text" name="telefone" required>
+        <input type="text" name="telefone" required value="<?= $contato ? $contato->getTelefone() : "" ?>"> </br>
 
         <label>Email:</label>
-        <input type="text" name="email" required>
+        <input type="text" name="email" required value="<?= $contato ? $contato->getEmail() : "" ?>"> </br>
 
         <label>Endereço:</label>
-        <input type="text" name="endereco">
+        <input type="text" name="endereco" value="<?= $contato ? $contato->getEndereco() : "" ?>"> </br>
 
-        <button type="submit">Salvar</button>
+        <button type="submit">Salvar</button> </br>
+        <a href="index.php">Cancelar</a>
     </form>
 </body>
 </html>
