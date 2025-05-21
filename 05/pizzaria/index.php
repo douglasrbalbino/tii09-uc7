@@ -23,6 +23,7 @@ $pizzas = $bd->getAll();
             <th>SABOR</th>
             <th>TAMANHO</th>
             <th>PREÇO</th>
+            <th>Ações</th>
         </tr>
 
         <?php foreach($pizzas as $p): ?>
@@ -31,9 +32,14 @@ $pizzas = $bd->getAll();
                 <td><?= $p->getSabor() ?></td>
                 <td><?= $p->getTamanho() ?></td>
                 <td><?= $p->getPreco() ?></td>
+                <td>
+                    <a href="#">Detalhes</a>
+                    <a href="#">Editar</a>
+                    <a href="pizza_delete.php" <?= $p->getId() ?>>Excluir</a>
+                </td>
             </tr>
-
         <?php endforeach; ?>
+        
     </table>
 
     </br>
