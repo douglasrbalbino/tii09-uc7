@@ -15,13 +15,13 @@ class ProdutoDAO
     public function getAll(): array
     {
         $resultadoDoBanco = $this->db->query("SELECT * FROM produtos");
-        $produtos = [];        
+        $produtos = [];
 
         while($row = $resultadoDoBanco->fetch(PDO::FETCH_ASSOC)) {
             $produtos[] =  new Produto(
                 $row['id'],
-                $row['nome'], 
-                $row['preco'], 
+                $row['nome'],
+                $row['preco'],
                 $row['ativo'],
                 $row['dataDeCadastro'],
                 $row['dataDeValidade']
@@ -31,9 +31,21 @@ class ProdutoDAO
         return $produtos;
     }
 
-    public function getById(int $id): ?Produto
+    public function getById(int $parametroId): ?Produto
     {
-        return null;
+        $sql = "SELECT * FROM produtos WHERE id = :valorDoParametroId";
+
+        $stmt = $this->db->prepare($sql);        
+        $stmt->execute([':valorDoParametroId' => $parametroId]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row? new Produto(
+            $row['id'],
+            $row['nome'],
+            $row['preco'],
+            $row['ativo'],
+            $row['dataDeCadastro'],
+            $row['dataDeValidade']
+        ) : null;
     }
 
     public function create(Produto $produto): void {}
@@ -57,7 +69,7 @@ class ProdutoDAO
 
 $dao = new ProdutoDAO();
 echo "<pre>";
-print_r($dao->getAll());
+print_r($dao->getById(1));
 /*
 // SQL INJECTION:
 $dao = new ProdutoDAO();
