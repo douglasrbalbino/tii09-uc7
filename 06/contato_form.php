@@ -20,7 +20,11 @@ if(isset($_POST['id'])) {
     $dao->update($contato);
 
     header("Location: index.php");
-} else if(isset($_POST['nome']) && isset($_POST['telefone']) && isset($_POST['email'])) {
+
+} 
+
+
+else if(isset($_POST['nome']) && isset($_POST['telefone']) && isset($_POST['email'])) { // Se não
     $endereco = null;
     if(isset($_POST['endereco']))
     {

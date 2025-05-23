@@ -10,6 +10,8 @@ if(isset($_GET['id'])) {
     $pizza = $dao->getById($_GET['id']);
 }
 
+if // Fazer o Update
+
 if(isset($_POST['sabor']) && isset($_POST['tamanho']) && isset($_POST['preco'])) {
     $sabor = $_POST['sabor'];
     $tamanho = $_POST['tamanho'];

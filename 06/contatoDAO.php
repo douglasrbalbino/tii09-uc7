@@ -18,7 +18,12 @@
             $contatos = []; // Inicializa um array vazio
 
             while ($row  = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $contatos[] = new Contato($row['id'], $row['nome'], $row['telefone'], $row['email'], $row['endereco']);
+                $contatos[] = new Contato(
+                    $row['id'], 
+                    $row['nome'], 
+                    $row['telefone'], 
+                    $row['email'], 
+                    $row['endereco']);
             }
 
             return $contatos;
