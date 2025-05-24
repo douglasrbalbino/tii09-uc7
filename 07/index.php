@@ -28,9 +28,9 @@ $produtos = $dao->getAll();
             <td><?= $prd->getNome() ?></td>
             <td><?= $prd->getPreco() ?></td>
             <td>
-                <a href="#">Detalhes</a>
+                <a href="./frontend/produto_details.php?id=<?= $prd->getId() ?>">Detalhes</a>
                 <a href="./frontend/produto_form.php?id=<?= $prd->getId() ?>">Editar</a>
-                <a href="#">Excluir</a>
+                <a href="./frontend/produto_delete.php?id=<?= $prd->getId() ?>">Excluir</a>
             </td>
         </tr>
         <?php endforeach; ?>
