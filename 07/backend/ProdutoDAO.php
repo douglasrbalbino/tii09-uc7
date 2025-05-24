@@ -98,14 +98,17 @@ class ProdutoDAO
         ]);
     }
 
-    public function delete(int $id): void {}
+    public function delete(int $id): void
+    {
+        $stmt = $this->db->prepare("DELETE FROM produtos WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+    }
 }
 
-$dao = new ProdutoDAO();
-$produto = $dao->getById(6);
+// $dao = new ProdutoDAO();
 
-// $produto = new Produto(5, 'Banana', 3, 0,'2024-10-10', '2024-10-10'); // 
-// ($dao->update($produto));
+// $produto = new Produto(null, 'Banana', 3, 0,'2024-10-10', '2024-10-10');
+// $dao->create($produto);
 
 /*
 // SQL INJECTION:
