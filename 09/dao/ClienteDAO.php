@@ -15,9 +15,12 @@ class ClienteDAO
     public function getAll(): array
     {
         $stmt = $this->db->query("SELECT * FROM clientes");
-        
+        $clientesData = $stmt->fetchAll();
         $clientes = [];
-        
+
+        foreach($clientesData as $data) {
+            $clientes[] = new Cliente($data['id'], $data['nome'], $data['cpf'], $data['dataDeNascimento'], $data['ativo']);
+        }
         return $clientes;
     }
 
@@ -26,6 +29,10 @@ class ClienteDAO
         $stmt = $this->db->prepare("SELECT * FROM clientes WHERE id = :id");
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
+        $data = $stmt->fetch();
+        if($data) {
+            return new Cliente($data['id'], $data['nome'], $data['cpf'], $data['dataDeNascimento'], $data['ativo']);
+        }
         
         return null;
     }
@@ -35,7 +42,12 @@ class ClienteDAO
         $sql = "INSERT INTO clientes (nome, cpf, dataDeNascimento, ativo) VALUES (:nome, :cpf, :dataDeNascimento, :ativo)";
         $stmt = $this->db->prepare($sql);
         
-        return $stmt->execute();
+        return $stmt->execute([
+            ':nome' => $cliente->getNome(),
+            ':cpf' => $cliente->getCpf(),
+            ':dataDeNascimento' => $cliente->getDataDeNascimento(),
+            ':ativo' => $cliente->getAtivo() ? 1 : 0
+        ]);
     }
 
     public function update(Cliente $cliente): bool
@@ -43,14 +55,20 @@ class ClienteDAO
         $sql = "UPDATE clientes SET nome = :nome, cpf = :cpf, dataDeNascimento = :dataDeNascimento, ativo = :ativo WHERE id = :id";
         $stmt = $this->db->prepare($sql);
         
-        return $stmt->execute();
+        return $stmt->execute([
+            ':id' => $cliente->getId(),
+            ':nome' => $cliente->getNome(),
+            ':cpf' => $cliente->getCpf(),
+            ':dataDeNascimento'=> $cliente->getDataDeNascimento(),
+            ':ativo' => $cliente->getAtivo() ? 1 : 0
+        ]);
     }
 
     public function delete(int $id): bool
     {
         $stmt = $this->db->prepare("DELETE FROM clientes WHERE id = :id");
-        
-        return true;
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 }
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-class Cliente
+class Cliente implements JsonSerializable
 {
     private ?int $id;
     private string $nome;
@@ -21,5 +21,16 @@ class Cliente
     public function getNome(): string { return $this->nome; }
     public function getCpf(): string { return $this->cpf; }
     public function getDataDeNascimento(): string { return $this->dataDeNascimento; }
-    public function getAtivo(): bool { return $this->ativo; }   
+    public function getAtivo(): bool { return $this->ativo; }
+    
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->id,
+            'nome' => $this->nome,
+            'cpf' => $this->cpf,
+            'dataDeNascimento' => $this->dataDeNascimento,
+            'ativo' => $this->ativo,
+        ];
+    }
 }
