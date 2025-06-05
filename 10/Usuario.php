@@ -8,7 +8,6 @@ class Usuario
     private string $email;
     private ?string $token;
 
-
     public function __construct(?int $id, string $nome, string $senha, string $email, ?string $token = null) 
     {
         $this->id = $id;
