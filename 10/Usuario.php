@@ -21,5 +21,5 @@ class Usuario
     public function getNome(): string { return $this->nome; }
     public function getSenha(): string { return $this->senha; }
     public function getEmail(): string { return $this->email; }
-    public function getToken(): ?int { return $this->token; }
+    public function getToken(): ?string { return $this->token; }
 }
