@@ -10,7 +10,6 @@ class Produto implements JsonSerializable
     private bool $ativo;
     private string $dataDeCadastro; // DATE no banco, string 'YYYY-MM-DD' no PHP
     private ?string $dataDeValidade; // Pode ser NULL
-
     private ?Fornecedor $fornecedor;
 
     public function __construct(?int $id, string $nome, float $preco, bool $ativo, string $dataDeCadastro, ?string $dataDeValidade, ?Fornecedor $fornecedor)
@@ -22,7 +21,6 @@ class Produto implements JsonSerializable
         $this->dataDeCadastro = $dataDeCadastro;
         $this->dataDeValidade = $dataDeValidade;
         $this->fornecedor = $fornecedor;
-
     }
 
     // Getters
